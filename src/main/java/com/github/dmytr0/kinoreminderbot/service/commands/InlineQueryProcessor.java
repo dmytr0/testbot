@@ -36,7 +36,7 @@ public class InlineQueryProcessor {
         InlineQueryResultVenue venue2 = getVenue("222");
 
         InlineQueryResultCachedSticker sticker = getSticker();
-        answerInlineQuery.setResults(List.of(venue, venue2, sticker));
+        answerInlineQuery.setResults(List.of(venue, venue2));
 
         telegramSender.answerInlineQuery(answerInlineQuery);
 
