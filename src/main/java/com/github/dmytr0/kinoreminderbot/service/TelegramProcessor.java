@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 
@@ -33,35 +34,45 @@ public class TelegramProcessor {
     private Map<String, TextCommand> textCommands;
 
     @Async("telegramTP")
-    public void process(Update message) {
+    public void process(Update updateMessage) {
         User user = null;
-        if (message.hasCallbackQuery()) {
-            user = message.getCallbackQuery().getFrom();
-            String chatId = String.valueOf(message.getCallbackQuery().getMessage().getChatId());
-            String payload = message.getCallbackQuery().getData();
+        if (updateMessage.hasCallbackQuery()) {
+            user = updateMessage.getCallbackQuery().getFrom();
+            String chatId = String.valueOf(updateMessage.getCallbackQuery().getMessage().getChatId());
+            String payload = updateMessage.getCallbackQuery().getData();
             log.debug("chat: {}, user {},  payload: {}", chatId, user, payload);
             Payload payloadJson = parseObjectJson(payload, Payload.class);
             CallbackCommand callbackCommand = callbackCommands.get(payloadJson.getAction());
             if (callbackCommand != null) {
-                callbackCommand.process(message);
+                callbackCommand.process(updateMessage);
                 return;
             }
 
-        } else if (message.hasMessage()) {
-            user = message.getMessage().getFrom();
-            String chatId = String.valueOf(message.getMessage().getChatId());
-            String textMessage = message.getMessage().getText();
-            log.debug("chat: {}, user: {}, text message {}", chatId, user, textMessage);
-            TextCommand textCommand = ofNullable(textCommands.get(textMessage))
-                    .orElseGet(() -> textCommands.get(DEFAULT));
+        } else if (updateMessage.hasMessage()) {
+            Message message = updateMessage.getMessage();
+            if (message.hasText()) {
+                user = message.getFrom();
+                String chatId = String.valueOf(message.getChatId());
+                String textMessage = message.getText();
+                log.debug("chat: {}, user: {}, text message {}", chatId, user, textMessage);
+                TextCommand textCommand = ofNullable(textCommands.get(textMessage))
+                        .orElseGet(() -> textCommands.get(DEFAULT));
 
-            if (textCommand != null) {
-                textCommand.process(message);
-            } else {
-                // skip unknown text and default command absent
+                if (textCommand != null) {
+                    textCommand.process(updateMessage);
+                } else {
+                    // skip unknown text and default command absent
+                }
+            }
+            if(message.hasContact()) {
+                message.getContact();
             }
         }
-        log.debug("USER: " + user + " MESSAGE " + message);
+
+
+
+
+        log.debug("USER: " + user + " MESSAGE " + updateMessage);
         ofNullable(user).ifPresent(userService::saveSubscriber);
     }
 
