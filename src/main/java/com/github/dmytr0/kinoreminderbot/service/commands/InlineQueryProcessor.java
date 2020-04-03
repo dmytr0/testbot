@@ -31,12 +31,12 @@ public class InlineQueryProcessor {
         answerInlineQuery.setCacheTime(400);
 
 //        InlineQueryResultArticle article = getArticle();
-
-        InlineQueryResultVenue venue = getVenue("111");
-        InlineQueryResultVenue venue2 = getVenue("222");
+//
+//        InlineQueryResultVenue venue = getVenue("111");
+//        InlineQueryResultVenue venue2 = getVenue("222");
 
         InlineQueryResultCachedSticker sticker = getSticker();
-        answerInlineQuery.setResults(List.of(venue, venue2, sticker));
+        answerInlineQuery.setResults(List.of( sticker));
 
         telegramSender.answerInlineQuery(answerInlineQuery);
 
