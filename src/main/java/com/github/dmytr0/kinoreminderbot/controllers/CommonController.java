@@ -26,9 +26,8 @@ public class CommonController {
     }
 
     @GetMapping("/wh")
-    @ResponseBody
     public String whPage() {
-        return "<form action=\"/setWebhook\" method=\"post\"><button type=\"submit\">Set webhook</button></form>";
+        return "webhook";
     }
 
     @GetMapping(value = "/img/{name}", produces = IMAGE_JPEG_VALUE)
@@ -39,7 +38,7 @@ public class CommonController {
     }
 
     @PostMapping("/setWebhook")
-    public void setWebhook(@RequestParam(name = "url", required = false) String url) {
-        telegramSender.setWebhook(url);
+    public void setWebhook(@RequestParam(name = "host", required = false) String host) {
+        telegramSender.setWebhook(host);
     }
 }

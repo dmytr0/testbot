@@ -1,0 +1,32 @@
+<form action="/setWebhook" method="post">
+    <label for="app-host">Current host: </label>
+    <input type="text" name="host" id="app-host">
+    <br/>
+    <button type="submit" >Set webhook</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.getElementById('app-host').value = location.hostname;
+    });
+</script>
+
+<style>
+    label {
+        font-size: 20px
+    }
+    input {
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #e2faff;
+    }
+    button {
+        width: 300px;
+        height: 30px;
+        border-radius: 10px;
+        font-size: 16px;
+        margin-top: 5px;
+    }
+
+</style>

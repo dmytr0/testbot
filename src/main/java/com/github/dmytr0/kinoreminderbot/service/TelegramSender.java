@@ -80,10 +80,10 @@ public class TelegramSender {
         callHttp(() -> telegramClient.sendPhoto(photo, token));
     }
 
-    public void setWebhook(@Nullable String url) {
-        String webhookUrl = Optional.ofNullable(url).orElseGet(() -> appName + ".herokuapp.com/messenger/telegram/webhook");
+    public void setWebhook(@Nullable String host) {
+        String webhookUrl = Optional.ofNullable(host).orElseGet(() -> appName + ".herokuapp.com/messenger/telegram/webhook");
+        log.info("webhookUrl [{}] will be setup", webhookUrl);
         callHttp(() -> telegramClient.setWebhook(webhookUrl, token));
-
     }
 
     public void editMessageText(EditMessageText editMessageText) {
