@@ -7,7 +7,7 @@ logging:
       github:
 #        dmytr0: DEBUG
         dmytr0:
-          kinoreminderbot: INFO
+          kinoreminderbot: DEBUG
 #    org:
 #      springframework:
 #        boot:

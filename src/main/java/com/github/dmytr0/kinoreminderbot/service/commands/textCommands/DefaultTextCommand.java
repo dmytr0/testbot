@@ -23,6 +23,7 @@ public class DefaultTextCommand implements TextCommand {
         String chatId = telegramHelper.getChatId(message);
         String text = telegramHelper.getText(message);
         User user = telegramHelper.getUser(message);
+        telegramSender.sendMessage(chatId, "Stub");
     }
 
 }
