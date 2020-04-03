@@ -36,7 +36,7 @@ public class InlineQueryProcessor {
 
         answerInlineQuery.setResults(List.of(venue));
 
-        telegramSender.send(answerInlineQuery);
+        telegramSender.answerInlineQuery(answerInlineQuery);
 
     }
 
@@ -53,6 +53,8 @@ public class InlineQueryProcessor {
         result.setAddress("adresss");
         return result;
     }
+
+
 
     private InlineQueryResultCachedSticker getSticker() {
         InlineQueryResultCachedSticker result = new InlineQueryResultCachedSticker();

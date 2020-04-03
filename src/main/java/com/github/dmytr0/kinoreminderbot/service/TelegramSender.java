@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.AnswerInlineQuery;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -83,6 +84,10 @@ public class TelegramSender {
 
     public void sendPhoto(SendPhoto photo) {
         callHttp(() -> telegramClient.sendPhoto(photo, token));
+    }
+
+    public void answerInlineQuery(AnswerInlineQuery answer) {
+        callHttp(() -> telegramClient.answerInlineQuery(answer, token));
     }
 
     public void setWebhook(@Nullable String host) {

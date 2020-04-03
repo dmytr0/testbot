@@ -3,6 +3,7 @@ package com.github.dmytr0.kinoreminderbot.clients;
 import com.github.dmytr0.kinoreminderbot.dto.SendPhoto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
+import org.telegram.telegrambots.meta.api.methods.AnswerInlineQuery;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -32,6 +33,9 @@ public interface TelegramClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/bot{token}/deleteMessage")
     String deleteMessage(@RequestBody DeleteMessage editReplyMarkup, @PathVariable("token") String token);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/bot{token}/answerInlineQuery")
+    String answerInlineQuery(@RequestBody AnswerInlineQuery answerInlineQuery, @PathVariable("token") String token);
 
     @RequestMapping(method = RequestMethod.POST, value = "/bot{token}/{path}}")
     String send(@RequestBody BotApiMethod message,
