@@ -2,6 +2,7 @@ package com.github.dmytr0.kinoreminderbot.service;
 
 import com.github.dmytr0.kinoreminderbot.dto.Payload;
 import com.github.dmytr0.kinoreminderbot.service.commands.CallbackCommand;
+import com.github.dmytr0.kinoreminderbot.service.commands.InlineQueryProcessor;
 import com.github.dmytr0.kinoreminderbot.service.commands.TextCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
+import org.telegram.telegrambots.meta.api.objects.inlinequery.InlineQuery;
 
 import java.util.Map;
 
@@ -32,6 +34,8 @@ public class TelegramProcessor {
     @Qualifier("textCommands")
     @Autowired
     private Map<String, TextCommand> textCommands;
+    @Autowired
+    private InlineQueryProcessor inlineQueryProcessor;
 
     @Async("telegramTP")
     public void process(Update updateMessage) {
@@ -67,6 +71,8 @@ public class TelegramProcessor {
             if(message.hasContact()) {
                 message.getContact();
             }
+        } else if(updateMessage.hasInlineQuery()) {
+            inlineQueryProcessor.process(updateMessage);
         }
 
 
