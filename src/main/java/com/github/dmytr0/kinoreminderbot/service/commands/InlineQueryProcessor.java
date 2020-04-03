@@ -31,12 +31,12 @@ public class InlineQueryProcessor {
         answerInlineQuery.setCacheTime(400);
 
 //        InlineQueryResultArticle article = getArticle();
-//
-//        InlineQueryResultVenue venue = getVenue("111");
-//        InlineQueryResultVenue venue2 = getVenue("222");
+
+        InlineQueryResultVenue venue = getVenue("111");
+        InlineQueryResultVenue venue2 = getVenue("222");
 
         InlineQueryResultCachedSticker sticker = getSticker();
-        answerInlineQuery.setResults(List.of( sticker));
+        answerInlineQuery.setResults(List.of(venue, venue2, sticker));
 
         telegramSender.answerInlineQuery(answerInlineQuery);
 
@@ -61,7 +61,7 @@ public class InlineQueryProcessor {
     private InlineQueryResultCachedSticker getSticker() {
         return new InlineQueryResultCachedSticker()
                 .setId("3333")
-                .setStickerFileId("AAMCAgADGQEAAwdeh4aJLMTjJQVbyS2TmM7kzPtVugACBwADRDM-CRTMY_GI_goQZL6sDgAEAQAHbQADUFUAAhgE");
+                .setStickerFileId("CAACAgIAAxkBAAMHXoeGiSzE4yUFW8ktk5jO5Mz7VboAAgcAA0QzPgkUzGPxiP4KEBgE");
 
     }
 
