@@ -47,6 +47,7 @@ public class InlineQueryProcessor {
 
     private InlineQueryResultVenue getVenue() {
         InlineQueryResultVenue result = new InlineQueryResultVenue();
+        result.setId("111");
         result.setLatitude(50.193647F);
         result.setLongitude(30.311284F);
         result.setTitle("title");
