@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -63,17 +64,21 @@ public class TelegramSender {
     public void sendMessage(PartialBotApiMethod<Message> message) {
         if (message instanceof SendPhoto) {
             sendPhoto((SendPhoto) message);
-            return;
-        }
-        if (message instanceof SendMessage) {
+        } else if (message instanceof SendMessage) {
             sendMessage((SendMessage) message);
-            return;
+        } else if (message instanceof BotApiMethod) {
+            send((BotApiMethod) message);
+        } else {
+            throw new UnsupportedOperationException("Message type not supported to send " + message);
         }
-        throw new UnsupportedOperationException("Message type not supported to send " + message);
     }
 
     public void sendMessage(SendMessage message) {
         callHttp(() -> telegramClient.sendMessage(message, token));
+    }
+
+    public void send(BotApiMethod message) {
+        callHttp(() -> telegramClient.send(message, token, message.getMethod()));
     }
 
     public void sendPhoto(SendPhoto photo) {

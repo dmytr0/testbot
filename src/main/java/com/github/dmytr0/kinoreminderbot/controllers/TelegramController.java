@@ -24,11 +24,11 @@ public class TelegramController {
     @RequestMapping("/webhook")
     @ResponseStatus(OK)
     public void messageReceiver(@RequestBody Update message) {
-        if (deduplicationService.isNeedToProcess(message)) {
+//        if (deduplicationService.isNeedToProcess(message)) {
             log.debug("Message received:\n" + prepareObjectJson(message));
             telegramProcessor.process(message);
-        } else {
-            log.debug("Message DUPLICATE SKIPPED:\n" + prepareObjectJson(message));
-        }
+//        } else {
+//            log.debug("Message DUPLICATE SKIPPED:\n" + prepareObjectJson(message));
+//        }
     }
 }
