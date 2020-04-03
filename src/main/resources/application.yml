@@ -1,0 +1,35 @@
+server:
+  port: 5000
+
+logging:
+  level:
+    com:
+      github:
+#        dmytr0: DEBUG
+        dmytr0:
+          kinoreminderbot: INFO
+#    org:
+#      springframework:
+#        boot:
+#          autoconfigure: WARN
+
+#spring:
+#  jmx:
+#    enabled: false
+#  main:
+#    lazy-initialization: true
+#  data:
+#    jpa:
+#      repositories:
+#        bootstrap-mode: lazy
+
+
+
+
+
+
+
+
+
+
+
