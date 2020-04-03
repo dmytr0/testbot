@@ -81,7 +81,7 @@ public class TelegramSender {
     }
 
     public void setWebhook(@Nullable String host) {
-        String webhookUrl = Optional.ofNullable(host).orElseGet(() -> appName + ".herokuapp.com/messenger/telegram/webhook");
+        String webhookUrl = Optional.ofNullable(host).orElseGet(() -> appName + ".herokuapp.com") + "/messenger/telegram/webhook";
         log.info("webhookUrl [{}] will be setup", webhookUrl);
         callHttp(() -> telegramClient.setWebhook(webhookUrl, token));
     }
