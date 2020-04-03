@@ -22,7 +22,7 @@ public class CommonController {
     @GetMapping("/")
     @ResponseBody
     public String startPage() {
-        return "<div><img src='/img/censored.jpg' style='height: 100%;width: 100%;'></img></div>";
+        return "main";
     }
 
     @GetMapping("/wh")
@@ -38,7 +38,8 @@ public class CommonController {
     }
 
     @PostMapping("/setWebhook")
-    public void setWebhook(@RequestParam(name = "host", required = false) String host) {
+    public String setWebhook(@RequestParam(name = "host", required = false) String host) {
         telegramSender.setWebhook(host);
+        return "main";
     }
 }
