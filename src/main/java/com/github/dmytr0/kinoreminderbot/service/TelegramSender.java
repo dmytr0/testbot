@@ -29,7 +29,7 @@ public class TelegramSender {
 
     @Value("${telegram.token}")
     private String token;
-    //@Value("${heroku.app.name}")
+    @Value("${heroku.app.name:}")
     private String appName;
 
     private final TelegramClient telegramClient;
