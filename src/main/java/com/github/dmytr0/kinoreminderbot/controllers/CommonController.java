@@ -20,7 +20,6 @@ public class CommonController {
     private final TelegramSender telegramSender;
 
     @GetMapping("/")
-    @ResponseBody
     public String startPage() {
         return "main";
     }
