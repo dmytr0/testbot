@@ -32,9 +32,11 @@ public class InlineQueryProcessor {
 
 //        InlineQueryResultArticle article = getArticle();
 
-        InlineQueryResultVenue venue = getVenue();
+        InlineQueryResultVenue venue = getVenue("111");
+        InlineQueryResultVenue venue2 = getVenue("222");
 
-        answerInlineQuery.setResults(List.of(venue));
+        InlineQueryResultCachedSticker sticker = getSticker();
+        answerInlineQuery.setResults(List.of(venue, venue2, sticker));
 
         telegramSender.answerInlineQuery(answerInlineQuery);
 
@@ -45,21 +47,22 @@ public class InlineQueryProcessor {
         return result;
     }
 
-    private InlineQueryResultVenue getVenue() {
-        InlineQueryResultVenue result = new InlineQueryResultVenue();
-        result.setId("111");
-        result.setLatitude(50.193647F);
-        result.setLongitude(30.311284F);
-        result.setTitle("title");
-        result.setAddress("adresss");
-        return result;
+    private InlineQueryResultVenue getVenue(String id) {
+        return new InlineQueryResultVenue()
+                .setId(id)
+                .setLatitude(50.193647F)
+                .setLongitude(30.311284F)
+                .setTitle("title")
+                .setAddress("adresss")
+                .setThumbUrl("https://pngimg.com/uploads/light/light_PNG14440.png");
     }
 
 
-
     private InlineQueryResultCachedSticker getSticker() {
-        InlineQueryResultCachedSticker result = new InlineQueryResultCachedSticker();
-        return result;
+        return new InlineQueryResultCachedSticker()
+                .setId("3333")
+                .setStickerFileId("AAMCAgADGQEAAwdeh4aJLMTjJQVbyS2TmM7kzPtVugACBwADRDM-CRTMY_GI_goQZL6sDgAEAQAHbQADUFUAAhgE");
+
     }
 
 
