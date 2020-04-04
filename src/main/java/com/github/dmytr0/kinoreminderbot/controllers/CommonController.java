@@ -19,7 +19,7 @@ public class CommonController {
 
     private final TelegramSender telegramSender;
 
-    @GetMapping("/")
+    @RequestMapping("/")
     public String startPage() {
         return "main";
     }
@@ -29,12 +29,8 @@ public class CommonController {
         return "webhook";
     }
 
-    @GetMapping(value = "/img/{name}", produces = IMAGE_JPEG_VALUE)
-    @ResponseBody
-    public byte[] img(@PathVariable String name) throws IOException {
-        InputStream in = getClass().getResourceAsStream("/img/" + name);
-        return IOUtils.toByteArray(in);
-    }
+//
+
 
     @PostMapping("/setWebhook")
     public String setWebhook(@RequestParam(name = "host", required = false) String host) {
